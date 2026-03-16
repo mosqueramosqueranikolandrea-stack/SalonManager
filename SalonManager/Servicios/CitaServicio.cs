@@ -2,17 +2,19 @@
 
 namespace SalonManager.Servicios;
 
-public class ClienteServicio
+public class CitaServicio
 {
-    private List<Cliente> clientes = new List<Cliente>();
+    private List<Cita> citas = new List<Cita>();
 
-    public void AgregarCliente(Cliente cliente)
+    public void AgregarCita(Cita cita)
     {
-        clientes.Add(cliente);
+        citas.Add(cita);
     }
 
-    public List<Cliente> ObtenerClientes()
+    public List<Cita> ObtenerCitas()
     {
-        return clientes;
+        return citas;
     }
+}
+
 
