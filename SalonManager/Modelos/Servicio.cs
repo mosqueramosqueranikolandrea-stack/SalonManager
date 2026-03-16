@@ -1,7 +1,7 @@
 ﻿namespace SalonManager.Modelos;
 
-public class Cliente
+public class Servicio
 {
     public string Nombre { get; set; }
-    public string Telefono { get; set; }
+    public double Precio { get; set; }
 }
