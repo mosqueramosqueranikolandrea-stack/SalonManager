@@ -1,6 +1,6 @@
 ﻿using SalonManager.Modelos;
 
-namespace SalonManager.Servicios;
+namespace SalonManager.Servicio;
 
 public class CitaServicio
 {
