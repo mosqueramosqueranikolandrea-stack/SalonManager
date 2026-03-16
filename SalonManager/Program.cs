@@ -1,10 +1,9 @@
 ﻿using SalonManager.Modelos;
-using SalonManager.Servicio;
 using SalonManager.Servicios;
 
 var clienteServicio = new ClienteServicio();
 var servicioServicio = new ServicioServicio();
-var citaServicio = new SalonManager.Servicio.CitaServicio();
+var citaServicio = new CitaServicio();
 
 bool continuar = true;
 
@@ -40,6 +39,44 @@ while (continuar)
             Console.WriteLine("Cliente registrado!");
             break;
 
+        case "2":
+            Console.Write("Nombre del servicio: ");
+            var nombreServicio = Console.ReadLine();
+
+            Console.Write("Precio: ");
+            var precio = double.Parse(Console.ReadLine());
+
+            var servicio = new Servicio
+            {
+                Nombre = nombreServicio,
+                Precio = precio
+            };
+
+            servicioServicio.AgregarServicio(servicio);
+            Console.WriteLine("Servicio registrado!");
+            break;
+
+        case "3":
+            Console.Write("Nombre del cliente: ");
+            var clienteCita = Console.ReadLine();
+
+            Console.Write("Nombre del servicio: ");
+            var servicioCita = Console.ReadLine();
+
+            Console.Write("Fecha (YYYY-MM-DD): ");
+            var fechaTexto = Console.ReadLine();
+
+            var cita = new Cita
+            {
+                Cliente = clienteCita,
+                Servicio = servicioCita,
+                Fecha = DateTime.Parse(fechaTexto)
+            };
+
+            citaServicio.AgregarCita(cita);
+            Console.WriteLine("Cita registrada!");
+            break;
+
         case "4":
             var clientes = clienteServicio.ObtenerClientes();
 
@@ -47,6 +84,16 @@ while (continuar)
             foreach (var c in clientes)
             {
                 Console.WriteLine($"Nombre: {c.Nombre} - Telefono: {c.Telefono}");
+            }
+            break;
+
+        case "5":
+            var citas = citaServicio.ObtenerCitas();
+
+            Console.WriteLine("\n--- Lista de Citas ---");
+            foreach (var c in citas)
+            {
+                Console.WriteLine($"Cliente: {c.Cliente} | Servicio: {c.Servicio} | Fecha: {c.Fecha}");
             }
             break;
 
