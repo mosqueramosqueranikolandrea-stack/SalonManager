@@ -127,12 +127,9 @@ dotnet run
 
 ---
 
-## 🏆 Conclusión
-
-El sistema cumple con los requisitos del taller, implementando correctamente operaciones CRUD, manejo de listas, programación orientada a objetos y persistencia de datos mediante archivos CSV.
-
----
 
 ## 👨‍💻 Autor
 
-Proyecto desarrollado como parte de un taller académico de programación.
+Proyecto desarrollado por:
+Sofia Espinosa Bedoya
+Nikol Mosquera Mosquera
