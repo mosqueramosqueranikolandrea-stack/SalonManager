@@ -19,6 +19,9 @@ servicioServicio.AgregarServicio(new Servicio { Nombre = "Tratamiento Facial", P
 servicioServicio.AgregarServicio(new Servicio { Nombre = "Alisado", Precio = 80000 });
 servicioServicio.AgregarServicio(new Servicio { Nombre = "Cejas y Pestañas", Precio = 15000 });
 
+clienteServicio.CargarClientes();
+citaServicio.CargarCitas();
+
 while (continuar)
 {
     Console.WriteLine("\n=== SERVICIOS DISPONIBLES ===");
@@ -58,6 +61,8 @@ while (continuar)
             };
 
             clienteServicio.AgregarCliente(cliente);
+            clienteServicio.GuardarClientes(); 
+
             Console.WriteLine("Cliente registrado!");
             break;
 
@@ -122,6 +127,8 @@ while (continuar)
             };
 
             citaServicio.AgregarCita(cita);
+            citaServicio.GuardarCitas(); 
+
             Console.WriteLine("Cita registrada!");
             break;
 

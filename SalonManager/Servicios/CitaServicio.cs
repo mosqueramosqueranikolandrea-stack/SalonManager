@@ -1,4 +1,8 @@
-﻿using SalonManager.Modelos;
+﻿using CsvHelper;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using SalonManager.Modelos;
 using System;
 
 namespace SalonManager.Servicios;
@@ -28,5 +32,23 @@ public class CitaServicio
     public List<Cita> ObtenerCitas()
     {
         return citas;
+    }
+    public void GuardarCitas()
+    {
+        using var writer = new StreamWriter("citas.csv");
+        using var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+
+        csv.WriteRecords(citas);
+    }
+
+    public void CargarCitas()
+    {
+        if (!File.Exists("citas.csv"))
+            return;
+
+        using var reader = new StreamReader("citas.csv");
+        using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+
+        citas = csv.GetRecords<Cita>().ToList();
     }
 }
