@@ -64,6 +64,7 @@ Esto permite que los datos se mantengan incluso después de cerrar la aplicació
 SalonManager
 │
 ├── Modelos
+|	|──Persona.cs
 │   ├── Cliente.cs
 │   ├── Servicio.cs
 │   └── Cita.cs
@@ -82,18 +83,12 @@ SalonManager
 
 ---
 
-## 🧠 Diagrama UML
+## 🧠 Relaciones UML
 
-El sistema está compuesto por las siguientes clases:
-
-* Cliente
-* Servicio
-* Cita
-* ClienteServicio
-* ServicioServicio
-* CitaServicio
-
-Se implementa separación entre entidades y lógica de negocio mediante clases de servicio.
+- ClienteServicio gestiona múltiples Cliente
+- ServicioServicio gestiona múltiples Servicio
+- CitaServicio gestiona múltiples Cita
+- Cliente hereda de Persona
 
 ---
 
@@ -104,6 +99,10 @@ Se implementa separación entre entidades y lógica de negocio mediante clases d
 * CsvHelper
 
 ---
+
+## 💾 Persistencia de datos
+
+El sistema utiliza la librería CsvHelper para almacenar la información en archivos CSV, permitiendo mantener los datos entre ejecuciones.
 
 ## ▶️ Ejecución del programa
 
@@ -128,7 +127,7 @@ dotnet run
 ---
 
 
-## 👨‍💻 Autor
+## 👨‍💻 Autoras
 
 Proyecto desarrollado por:
 Sofia Espinosa Bedoya
