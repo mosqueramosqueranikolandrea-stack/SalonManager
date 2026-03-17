@@ -7,15 +7,37 @@ var citaServicio = new CitaServicio();
 
 bool continuar = true;
 
+// SERVICIOS FIJOS
+servicioServicio.AgregarServicio(new Servicio { Nombre = "Corte", Precio = 15000 });
+servicioServicio.AgregarServicio(new Servicio { Nombre = "Manicure", Precio = 20000 });
+servicioServicio.AgregarServicio(new Servicio { Nombre = "Pedicure", Precio = 22000 });
+servicioServicio.AgregarServicio(new Servicio { Nombre = "Peinado", Precio = 18000 });
+servicioServicio.AgregarServicio(new Servicio { Nombre = "Tinte", Precio = 50000 });
+servicioServicio.AgregarServicio(new Servicio { Nombre = "Depilacion", Precio = 25000 });
+servicioServicio.AgregarServicio(new Servicio { Nombre = "Masaje Capilar", Precio = 30000 });
+servicioServicio.AgregarServicio(new Servicio { Nombre = "Tratamiento Facial", Precio = 40000 });
+servicioServicio.AgregarServicio(new Servicio { Nombre = "Alisado", Precio = 80000 });
+servicioServicio.AgregarServicio(new Servicio { Nombre = "Cejas y Pestañas", Precio = 15000 });
+
 while (continuar)
 {
+    Console.WriteLine("\n=== SERVICIOS DISPONIBLES ===");
+
+    var listaServicios = servicioServicio.ObtenerServicios();
+    int i = 1;
+
+    foreach (var s in listaServicios)
+    {
+        Console.WriteLine($"{i}. {s.Nombre} - {s.Precio}");
+        i++;
+    }
+
     Console.WriteLine("\n=== SISTEMA DE GESTION DEL SALON ===");
     Console.WriteLine("1. Registrar cliente");
-    Console.WriteLine("2. Registrar servicio");
-    Console.WriteLine("3. Registrar cita");
-    Console.WriteLine("4. Ver clientes");
-    Console.WriteLine("5. Ver citas");
-    Console.WriteLine("6. Salir");
+    Console.WriteLine("2. Registrar cita");
+    Console.WriteLine("3. Ver clientes");
+    Console.WriteLine("4. Ver citas");
+    Console.WriteLine("5. Salir");
 
     Console.Write("Seleccione una opcion: ");
     var opcion = Console.ReadLine();
@@ -40,44 +62,70 @@ while (continuar)
             break;
 
         case "2":
-            Console.Write("Nombre del servicio: ");
-            var nombreServicio = Console.ReadLine();
 
-            Console.Write("Precio: ");
-            var precio = double.Parse(Console.ReadLine());
+            var clientesDisponibles = clienteServicio.ObtenerClientes();
 
-            var servicio = new Servicio
+            if (clientesDisponibles.Count == 0)
             {
-                Nombre = nombreServicio,
-                Precio = precio
-            };
+                Console.WriteLine("No hay clientes registrados");
+                break;
+            }
 
-            servicioServicio.AgregarServicio(servicio);
-            Console.WriteLine("Servicio registrado!");
-            break;
+            Console.WriteLine("\nSeleccione un cliente:");
 
-        case "3":
-            Console.Write("Nombre del cliente: ");
-            var clienteCita = Console.ReadLine();
+            for (int k = 0; k < clientesDisponibles.Count; k++)
+            {
+                Console.WriteLine($"{k + 1}. {clientesDisponibles[k].Nombre}");
+            }
 
-            Console.Write("Nombre del servicio: ");
-            var servicioCita = Console.ReadLine();
+            Console.Write("Opcion: ");
+            if (!int.TryParse(Console.ReadLine(), out int opcionCliente) ||
+                opcionCliente < 1 || opcionCliente > clientesDisponibles.Count)
+            {
+                Console.WriteLine("Opcion invalida");
+                break;
+            }
+
+            var clienteSeleccionado = clientesDisponibles[opcionCliente - 1].Nombre;
+
+            Console.WriteLine("\nSeleccione un servicio:");
+
+            for (int j = 0; j < listaServicios.Count; j++)
+            {
+                Console.WriteLine($"{j + 1}. {listaServicios[j].Nombre} - {listaServicios[j].Precio}");
+            }
+
+            Console.Write("Opcion: ");
+            if (!int.TryParse(Console.ReadLine(), out int opcionServicio) ||
+                opcionServicio < 1 || opcionServicio > listaServicios.Count)
+            {
+                Console.WriteLine("Opcion invalida");
+                break;
+            }
+
+            var servicioSeleccionado = listaServicios[opcionServicio - 1].Nombre;
 
             Console.Write("Fecha (YYYY-MM-DD): ");
             var fechaTexto = Console.ReadLine();
 
+            if (!DateTime.TryParse(fechaTexto, out DateTime fecha))
+            {
+                Console.WriteLine("Fecha inválida");
+                break;
+            }
+
             var cita = new Cita
             {
-                Cliente = clienteCita,
-                Servicio = servicioCita,
-                Fecha = DateTime.Parse(fechaTexto)
+                Cliente = clienteSeleccionado,
+                Servicio = servicioSeleccionado,
+                Fecha = fecha
             };
 
             citaServicio.AgregarCita(cita);
             Console.WriteLine("Cita registrada!");
             break;
 
-        case "4":
+        case "3":
             var clientes = clienteServicio.ObtenerClientes();
 
             Console.WriteLine("\n--- Lista de Clientes ---");
@@ -87,7 +135,7 @@ while (continuar)
             }
             break;
 
-        case "5":
+        case "4":
             var citas = citaServicio.ObtenerCitas();
 
             Console.WriteLine("\n--- Lista de Citas ---");
@@ -97,7 +145,7 @@ while (continuar)
             }
             break;
 
-        case "6":
+        case "5":
             continuar = false;
             Console.WriteLine("Saliendo del sistema...");
             break;
