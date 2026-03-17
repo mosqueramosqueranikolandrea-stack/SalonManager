@@ -1,4 +1,5 @@
 ﻿using SalonManager.Modelos;
+using System;
 
 namespace SalonManager.Servicios;
 
@@ -6,15 +7,6 @@ public class CitaServicio
 {
     private List<Cita> citas = new List<Cita>();
 
-    public void AgregarCita(Cita cita)
-    {
-        citas.Add(cita);
-    }
-
-    public List<Cita> ObtenerCitas()
-    {
-        return citas;
-    }
     public void AgregarCita(Cita cita)
     {
         if (string.IsNullOrWhiteSpace(cita.Cliente) ||
@@ -32,6 +24,9 @@ public class CitaServicio
 
         citas.Add(cita);
     }
+
+    public List<Cita> ObtenerCitas()
+    {
+        return citas;
+    }
 }
-
-

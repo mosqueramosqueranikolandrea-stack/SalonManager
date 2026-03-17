@@ -1,29 +1,27 @@
 ﻿using SalonManager.Modelos;
+using System;
+using System.Collections.Generic;
 
-namespace SalonManager.Servicio;
-
-public class CitaServicio
+namespace SalonManager.Servicios
 {
-    private List<Cita> citas = new List<Cita>();
-
-    public void AgregarCita(Cita cita)
+    public class ServicioServicio
     {
-        citas.Add(cita);
-    }
+        private List<Servicio> servicios = new List<Servicio>();
 
-    public List<Cita> ObtenerCitas()
-    {
-        return citas;
-    }
-    private List<Servicio> servicios = new List<Servicio>();
-
-    public void AgregarServicio(Servicio servicio)
-    {
-        if (string.IsNullOrWhiteSpace(servicio.Nombre) || servicio.Precio <= 0)
+        public void AgregarServicio(Servicio servicio)
         {
-            Console.WriteLine("Error: Datos del servicio inválidos");
-            return;
+            if (string.IsNullOrWhiteSpace(servicio.Nombre) || servicio.Precio <= 0)
+            {
+                Console.WriteLine("Error: Datos del servicio inválidos");
+                return;
+            }
+
+            servicios.Add(servicio);
         }
 
-        servicios.Add(servicio);
+        public List<Servicio> ObtenerServicios()
+        {
+            return servicios;
+        }
     }
+}
