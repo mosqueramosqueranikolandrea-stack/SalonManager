@@ -15,6 +15,8 @@ public class CitaServicio
     {
         return citas;
     }
+    private List<Servicio> servicios = new List<Servicio>();
+
     public void AgregarServicio(Servicio servicio)
     {
         if (string.IsNullOrWhiteSpace(servicio.Nombre) || servicio.Precio <= 0)
@@ -25,4 +27,3 @@ public class CitaServicio
 
         servicios.Add(servicio);
     }
-}
