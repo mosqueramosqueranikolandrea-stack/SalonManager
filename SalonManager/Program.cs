@@ -40,7 +40,9 @@ while (continuar)
     Console.WriteLine("2. Registrar cita");
     Console.WriteLine("3. Ver clientes");
     Console.WriteLine("4. Ver citas");
-    Console.WriteLine("5. Salir");
+    Console.WriteLine("5. Actualizar cliente");
+    Console.WriteLine("6. Eliminar cliente");
+    Console.WriteLine("7. Salir");
 
     Console.Write("Seleccione una opcion: ");
     var opcion = Console.ReadLine();
@@ -61,7 +63,7 @@ while (continuar)
             };
 
             clienteServicio.AgregarCliente(cliente);
-            clienteServicio.GuardarClientes(); 
+            clienteServicio.GuardarClientes();
 
             Console.WriteLine("Cliente registrado!");
             break;
@@ -127,7 +129,7 @@ while (continuar)
             };
 
             citaServicio.AgregarCita(cita);
-            citaServicio.GuardarCitas(); 
+            citaServicio.GuardarCitas();
 
             Console.WriteLine("Cita registrada!");
             break;
@@ -153,12 +155,66 @@ while (continuar)
             break;
 
         case "5":
-            continuar = false;
-            Console.WriteLine("Saliendo del sistema...");
+
+            var clientesAct = clienteServicio.ObtenerClientes();
+
+            if (clientesAct.Count == 0)
+            {
+                Console.WriteLine("No hay clientes");
+                break;
+            }
+
+            Console.WriteLine("\nSeleccione cliente a actualizar:");
+
+            for (int idx = 0; idx < clientesAct.Count; idx++)
+            {
+                Console.WriteLine($"{idx + 1}. {clientesAct[idx].Nombre}");
+            }
+
+            Console.Write("Opcion: ");
+            int index = int.Parse(Console.ReadLine()) - 1;
+
+            Console.Write("Nuevo nombre: ");
+            clientesAct[index].Nombre = Console.ReadLine();
+
+            Console.Write("Nuevo telefono: ");
+            clientesAct[index].Telefono = Console.ReadLine();
+
+            clienteServicio.GuardarClientes();
+
+            Console.WriteLine("Cliente actualizado!");
+            break;
+  
+        case "6":
+
+            var clientesDel = clienteServicio.ObtenerClientes();
+
+            if (clientesDel.Count == 0)
+            {
+                Console.WriteLine("No hay clientes");
+                break;
+            }
+
+            Console.WriteLine("\nSeleccione cliente a eliminar:");
+
+            for (int idx = 0; idx < clientesDel.Count; idx++)
+            {
+                Console.WriteLine($"{idx + 1}. {clientesDel[idx].Nombre}");
+            }
+
+            Console.Write("Opcion: ");
+            int eliminar = int.Parse(Console.ReadLine()) - 1;
+
+            clientesDel.RemoveAt(eliminar);
+
+            clienteServicio.GuardarClientes();
+
+            Console.WriteLine("Cliente eliminado!");
             break;
 
-        default:
-            Console.WriteLine("Opcion no valida");
+        case "7":
+            continuar = false;
+            Console.WriteLine("Saliendo...");
             break;
     }
 }
