@@ -15,4 +15,14 @@ public class CitaServicio
     {
         return citas;
     }
+    public void AgregarServicio(Servicio servicio)
+    {
+        if (string.IsNullOrWhiteSpace(servicio.Nombre) || servicio.Precio <= 0)
+        {
+            Console.WriteLine("Error: Datos del servicio inválidos");
+            return;
+        }
+
+        servicios.Add(servicio);
+    }
 }
